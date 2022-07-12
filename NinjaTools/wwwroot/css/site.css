@@ -16,3 +16,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.code-style {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
