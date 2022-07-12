@@ -18,7 +18,7 @@
 {
     <script>
         // Bind input change with a delay
-        $(document).on('input propertychange', 'textarea', function () {
+        $('#input').on('input propertychange', function () {
             var detailsElement = $(this),
                 details = $(this).val();
             // If it's the propertychange event, make sure it's the value that changed.
@@ -36,6 +36,30 @@
                     contentType: "text/plain",
                     success: function (data) {
                         $('#encoded').val(data);
+                    }
+                });
+            }, 500));
+        });
+
+        // Bind input change with a delay
+        $('#encoded').on('input propertychange', function () {
+            var detailsElement = $(this),
+                details = $(this).val();
+            // If it's the propertychange event, make sure it's the value that changed.
+            if (window.event && event.type == 'propertychange' && event.propertyName != 'value')
+                return;
+
+            // Clear any previously set timer before setting a fresh one
+            window.clearTimeout($(this).data('timeout'));
+            $(this).data('timeout', setTimeout(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "base64/decode",
+                    data: details,
+                    datatype: "text/plain",
+                    contentType: "text/plain",
+                    success: function (data) {
+                        $('#input').val(data);
                     }
                 });
             }, 500));

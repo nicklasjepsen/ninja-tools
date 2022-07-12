@@ -9,16 +9,7 @@ namespace NinjaTools.Pages
         public string Encoded { get; set; }
         private string input;
 
-        public string Input
-        {
-            get => input;
-            set
-            {
-                input = value;
-                var plainTextBytes = Encoding.UTF8.GetBytes(input);
-                Encoded = Convert.ToBase64String(plainTextBytes);
-            }
-        }
+        public string Input { get; set; }
         
         public void OnGet()
         {
