@@ -1,0 +1,43 @@
+﻿@page
+@model NinjaTools.Pages.Base64Model
+@{
+}
+
+<div class="text-center">
+    <h1 class="display-4">Input</h1>
+    <textarea id="input">@Model.Input</textarea>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">Encoded</h1>
+    <textarea id="encoded">@Model.Encoded</textarea>
+</div>
+
+@section Scripts
+{
+    <script>
+        // Bind input change with a delay
+        $(document).on('input propertychange', 'textarea', function () {
+            var detailsElement = $(this),
+                details = $(this).val();
+            // If it's the propertychange event, make sure it's the value that changed.
+            if (window.event && event.type == 'propertychange' && event.propertyName != 'value')
+                return;
+
+            // Clear any previously set timer before setting a fresh one
+            window.clearTimeout($(this).data('timeout'));
+            $(this).data('timeout', setTimeout(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "base64/encode",
+                    data: details,
+                    datatype: "text/plain",
+                    contentType: "text/plain",
+                    success: function (data) {
+                        $('#encoded').val(data);
+                    }
+                });
+            }, 500));
+        });
+    </script>
+}
