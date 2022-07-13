@@ -7,6 +7,7 @@ namespace NinjaTools.Pages
         
         public void OnGet()
         {
+            // Method needed for Razor pages
         }
     }
 }
