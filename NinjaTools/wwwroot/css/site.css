@@ -5,13 +5,21 @@ html {
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+textarea:active,
+textarea:focus {
+    outline: 0px !important;
+    -webkit-appearance: none;
+    border: 1px solid black !important;
+    box-shadow: none !important;
 }
 
 .code-style {

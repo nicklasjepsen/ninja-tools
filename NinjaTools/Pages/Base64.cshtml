@@ -4,21 +4,60 @@
     ViewData["Title"] = "Base64 Encode/Decode";
 }
 <div class="row">
-    <div class="col-xl-6">
-        <h1 class="display-4">Plain</h1>
-        <textarea id="input" class="form-control code-style" rows="10"></textarea>
+    <div class="col-xl-12 pb-5">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="display-5">Plain</h1>
+            </div>
+            <div class="col-4 d-flex align-items-end justify-content-end">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item border-0 p-1"><button class="btn btn-outline-danger" onclick="clearText('input')">clear</button></li>
+                    <li class="list-group-item border-0 p-1"><button class="btn btn-outline-dark" onclick="copyToClipboard('input')">copy</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <textarea id="input" class="form-control code-style" rows="10"></textarea>
+        </div>
     </div>
-    <div class="col-xl-6">
-        <h1 class="display-4">Encoded</h1>
-        <textarea id="encoded" class="form-control code-style" rows="10"></textarea>
+    <div class="col-xl-12">
+        <div class="row">
+            <div class="col-8">
+                <h1 class="display-5">Encoded</h1>
+            </div>
+            <div class="col-4 d-flex align-items-end justify-content-end">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item border-0 p-1"><button class="btn btn-outline-danger" onclick="clearText('encoded')">clear</button></li>
+                    <li class="list-group-item border-0 p-1"><button class="btn btn-outline-dark" onclick="copyToClipboard('encoded')">copy</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <textarea id="encoded" class="form-control code-style" rows="10"></textarea>
+        </div>
     </div>
 </div>
 
 
 @section Scripts
-{
+    {
     <script>
-        $('#input').on('input propertychange', function () {
+        function copyToClipboard(elementId) {
+            /* Get the textarea */
+            var copyText = $('#' + elementId);
+
+            /* Select the text field */
+            copyText.select();
+            //copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+            document.execCommand("copy");
+        }
+
+        function clearText(elementId) {
+            document.getElementById(elementId).value = '';
+        }
+
+        $('#input').on('input propertychange', function() {
             var details = $(this).val();
             // If it's the propertychange event, make sure it's the value that changed.
             if (window.event && event.type == 'propertychange' && event.propertyName != 'value')
@@ -27,12 +66,12 @@
             // Clear any previously set timer before setting a fresh one
             window.clearTimeout($(this).data('timeout'));
 
-            $(this).data('timeout', setTimeout(function () {
+            $(this).data('timeout', setTimeout(function() {
                 $('#encoded').val(btoa(details));
             }, 500));
         });
-        
-        $('#encoded').on('input propertychange', function () {
+
+        $('#encoded').on('input propertychange', function() {
             var details = $(this).val();
             // If it's the propertychange event, make sure it's the value that changed.
             if (window.event && event.type == 'propertychange' && event.propertyName != 'value')
@@ -40,7 +79,7 @@
 
             // Clear any previously set timer before setting a fresh one
             window.clearTimeout($(this).data('timeout'));
-            $(this).data('timeout', setTimeout(function () {
+            $(this).data('timeout', setTimeout(function() {
                 $('#input').val(atob(details));
             }, 500));
         });
