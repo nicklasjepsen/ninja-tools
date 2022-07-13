@@ -22,6 +22,7 @@ namespace NinjaTools.Pages
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            _logger.LogInformation("Error for request ID {requestId}", RequestId);
         }
     }
 }
