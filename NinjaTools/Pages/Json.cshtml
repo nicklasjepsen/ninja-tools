@@ -1,0 +1,45 @@
+﻿@page
+@model NinjaTools.Pages.JsonModel
+@{
+}
+
+<div class="row p-0">
+    @(await Html.PartialAsync("Shared/_Base64TextArea", Model.JsonTextAreaVm))
+
+</div>
+
+@section Scripts
+{
+    <script>
+        function copyToClipboard(elementId) {
+            var copyText = $('#' + elementId);
+            copyText.select();
+            document.execCommand("copy");
+        }
+
+        function clearText(elementId) {
+            document.getElementById(elementId).value = '';
+        }
+
+        $('#@Model.JsonTextAreaVm.Name').on('input propertychange', function() {
+            var details = $(this).val();
+            // If it's the propertychange event, make sure it's the value that changed.
+            if (window.event && event.type == 'propertychange' && event.propertyName != 'value')
+                return;
+
+            // Clear any previously set timer before setting a fresh one
+            window.clearTimeout($(this).data('timeout'));
+            
+            $(this).data('timeout', setTimeout(function() {
+               try {  
+                    const json = JSON.parse(details);  
+                    $('#@Model.JsonTextAreaVm.Name').val(JSON.stringify(json, null, 4));
+                } catch (e) {  
+                    console.log('invalid json', e);  
+                }
+                
+                
+            }, 500));
+        });
+    </script>
+}
