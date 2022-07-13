@@ -13,11 +13,13 @@ namespace NinjaTools.Pages
         {
             InputVm = new Base64TextAreaModel
             {
-                Name = "input"
+                Name = "input",
+                Title = "Plain"
             };
             EncodedVm = new Base64TextAreaModel
             {
-                Name = "encoded"
+                Name = "encoded",
+                Title = "Encoded"
             };
         }
 
