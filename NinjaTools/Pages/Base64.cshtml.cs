@@ -18,7 +18,7 @@ namespace NinjaTools.Pages
             };
             EncodedVm = new Base64TextAreaModel
             {
-                Name = "encoded"
+                Name = "encoded",
                 Title = "Encoded"
             };
         }
