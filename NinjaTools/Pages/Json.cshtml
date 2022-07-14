@@ -9,7 +9,9 @@
 </div>
 
 @section Scripts
-{
+    {
+
+
     <script>
         function copyToClipboard(elementId) {
             var copyText = $('#' + elementId);
@@ -29,16 +31,21 @@
 
             // Clear any previously set timer before setting a fresh one
             window.clearTimeout($(this).data('timeout'));
-            
+
             $(this).data('timeout', setTimeout(function() {
-               try {  
-                    const json = JSON.parse(details);  
+                try {
+                    const json = JSON.parse(details);
                     $('#@Model.JsonTextAreaVm.Name').val(JSON.stringify(json, null, 4));
-                } catch (e) {  
-                    console.log('invalid json', e);  
+                } catch (e) {
+                    const strToCheck = 'at position ';
+                    const position = parseInt(e.message.substring(e.message.indexOf(strToCheck) + strToCheck.length).split()[0]);
+                    $('#@Model.JsonTextAreaVm.Name').highlightWithinTextarea({
+                        highlight: [position-1, position]
+                    });
+                    console.log('invalid json', e);
                 }
-                
-                
+
+
             }, 500));
         });
     </script>
