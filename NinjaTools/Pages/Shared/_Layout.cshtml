@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NinjaTools.styles.css" asp-append-version="true" />
 
+    @await RenderSectionAsync("Head", false);
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZFF7CL366M"></script>
     <script>

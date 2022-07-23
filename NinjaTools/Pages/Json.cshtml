@@ -2,17 +2,34 @@
 @model NinjaTools.Pages.JsonModel
 @{
 }
+@section Head
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
 
 <div class="row p-0">
     @(await Html.PartialAsync("Shared/_Base64TextArea", Model.JsonTextAreaVm))
 
 </div>
 
-@section Scripts
-    {
+<div class="row p-0">
+    <div id="my-div"></div>
 
+</div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/codemirror.min.js" integrity="sha512-n7rucz/qOiYAkYK1CVKuqygMAnohil8Rg6kKAv0IsF2xnHUhnVyD5K9GO25OUvc+WEVZVu+NIYLblIUpkBMNvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.6/addon/lint/json-lint.min.js" integrity="sha512-40xVcCik6TlUiZadnRc6ZM0BN65s7F+C3K7eBqGRf8dmjKApjzoiT/GB1GJmdICOZbXjJCiTBbVlsIvFs8A/+Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+        CodeMirror(document.querySelector('#my-div'), {
+            lineNumbers: true,
+            tabSize: 2,
+            value: 'console.log("Hello, World");',
+            mode: "javascript"
+        });
+
         function copyToClipboard(elementId) {
             var copyText = $('#' + elementId);
             copyText.select();
@@ -39,9 +56,10 @@
                 } catch (e) {
                     const strToCheck = 'at position ';
                     const position = parseInt(e.message.substring(e.message.indexOf(strToCheck) + strToCheck.length).split()[0]);
-                    $('#@Model.JsonTextAreaVm.Name').highlightWithinTextarea({
-                        highlight: [position-1, position]
-                    });
+                    $('#@Model.JsonTextAreaVm.Name').select(position, position + 1);
+                    //$('#@Model.JsonTextAreaVm.Name').highlightWithinTextarea({
+                    //    highlight: [position-1, position]
+                    //});
                     console.log('invalid json', e);
                 }
 

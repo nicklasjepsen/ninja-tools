@@ -11,7 +11,7 @@
     "NinjaTools": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "base64",
+      "launchUrl": "json",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
